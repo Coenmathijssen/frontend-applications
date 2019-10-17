@@ -16,15 +16,3 @@ vue: {
     scss: 'style!css!sass'
   }
 }
-
-module.exports = {
-  css: {
-    loaderOptions: {
-      sass: {
-        data: `
-          @import "/css/_main.scss";
-        `
-      }
-    }
-  }
-}

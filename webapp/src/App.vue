@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header v-bind:menuItems="menuItems"/>
-    <Todos v-bind:todos="todos"/>
+    <router-view/>
   </div>
 </template>
 
@@ -17,18 +17,6 @@ export default {
   },
   data () {
     return {
-      todos: [
-        {
-          id: 1,
-          title: 'Todo one',
-          completed: false
-        },
-        {
-          id: 2,
-          title: 'Todo two',
-          completed: true
-        }
-      ],
       menuItems: [
         {
           id: 1,

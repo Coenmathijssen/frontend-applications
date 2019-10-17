@@ -9,8 +9,24 @@
 <script>
 export default {
   name: 'Todos',
-  props: ['todos']
+  data () {
+    return {
+      todos: [
+        {
+          id: 1,
+          title: 'Todo one',
+          completed: false
+        },
+        {
+          id: 2,
+          title: 'Todo two',
+          completed: true
+        }
+      ]
+    }
+  }
 }
+
 </script>
 
 <style scoped>
