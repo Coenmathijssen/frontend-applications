@@ -2,17 +2,16 @@
   <div id="app">
     <Header v-bind:menuItems="menuItems"/>
     <router-view/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
   </div>
 </template>
 
 <script>
-  import Todos from './components/Todos'
   import Header from './components/Header'
 
 export default {
   name: 'app',
   components: {
-    Todos,
     Header
   },
   data () {
@@ -50,8 +49,13 @@ export default {
   margin: 0;
   padding: 0;
 }
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.4;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Nunito', arial, sans-serif;
 }
+
+p {
+  font-family: 'lato', arial, sans-serif;
+}
+
+
 </style>
