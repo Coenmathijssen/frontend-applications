@@ -2,6 +2,7 @@
   <div class="root todos">
     <div v-bind:key="todo.id" v-for="todo in todos">
       <h3>{{todo.title}}</h3>
+      <router-view name="HelloWorld.vue"></router-view>
     </div>
   </div>
 </template>
@@ -26,7 +27,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>

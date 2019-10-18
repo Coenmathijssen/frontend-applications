@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Header from '@/components/Header'
 import Todos from '@/components/Todos'
 import HelloWorld from '@/components/HelloWorld'
+import Data from '@/components/Data'
 
 Vue.use(Router)
 
@@ -16,7 +17,10 @@ export default new Router({
     {
       path: '/visualisations',
       name: 'Visualisations',
-      component: HelloWorld
+      components: {
+        default: Data,
+        HelloWorld: HelloWorld
+      }
     },
     {
       path: '/about',
@@ -26,8 +30,7 @@ export default new Router({
     },
     {
       path: '/contact',
-      name: 'Contact',
-      component: Header
+      name: 'Contact'
     }
   ]
 })

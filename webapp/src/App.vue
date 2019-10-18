@@ -8,38 +8,38 @@
 
 <script>
   import Header from './components/Header'
+  import Todos from './components/Todos'
 
 export default {
   name: 'app',
   components: {
-    Header
+    Header,
+    Todos
   },
-  data () {
-    return {
-      menuItems: [
-        {
-          id: 1,
-          title: 'home',
-          a: '/home'
-        },
-        {
-          id: 2,
-          title: 'visualisations',
-          a: '/vis'
-        },
-        {
-          id: 3,
-          title: 'about',
-          a: '/about'
-        },
-        {
-          id: 4,
-          title: 'contact',
-          a: '/contact'
-        }
-      ]
-    }
-  }
+  data: () => ({
+    menuItems: [
+      {
+        id: 1,
+        title: 'home',
+        a: '/home'
+      },
+      {
+        id: 2,
+        title: 'visualisations',
+        a: '/vis'
+      },
+      {
+        id: 3,
+        title: 'about',
+        a: '/about'
+      },
+      {
+        id: 4,
+        title: 'contact',
+        a: '/contact'
+      }
+    ]
+  })
 }
 </script>
 
