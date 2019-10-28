@@ -1,7 +1,4 @@
  <template>
- <!--  <div>
-    <p>{{ apiData }}</p>
-  </div> -->
   <div class="root data">
     <div class="data-container">
       <div class="object" v-bind:key="apiData.id" v-for="data in apiData">

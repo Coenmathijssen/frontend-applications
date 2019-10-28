@@ -1,9 +1,11 @@
 <template>
   <div class="root header">
-    <div class="header-bar">
+    <div ref="test" class="header-bar" id="header">
+      <logo/>
       <div class="container">
+        <img class="logo svg" src="@/assets/logo-museum.svg" alt="logo museum">
         <ul class="menu-list">
-          <router-link to="/home">home</router-link>
+          <router-link to="/">home</router-link>
           <router-link to="/visualisations">visualisations</router-link>
           <router-link to="/about">about</router-link>
           <router-link to="/contact">contact</router-link>
@@ -14,9 +16,14 @@
 </template>
 
 <script>
+  import logo from '@/assets/logo-museum.svg'
+
 export default {
   name: 'Header',
-  props: ['menuItems']
+  props: ['menuItems'],
+  components: {
+    logo
+  }
 }
 </script>
 
@@ -24,24 +31,38 @@ export default {
   @import '../css/_main.scss';
 
   .header-bar {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    width: 100%;
     background-color: $light-blue;
+
+    .logo {
+      padding: 10px 20px;
+      max-width: 230px;
+    }
 
     .container {
       max-width: 1080px;
+      padding: 0 1em;
+      margin: 0;
+      display: flex;
+      justify-content: flex-start;
 
       .menu-list {
-        margin: 0 auto;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-evenly;
+        justify-content: flex-start;
       }
 
       a {
         position: relative;
-        padding: 20px 15px;
+        padding: 15px 30px;
         font-family: 'Nunito', arial, sans-serif;
         font-weight: 700;
         font-size: 1em;
+        line-height: 3em;
         text-decoration: none;
         color: $black;
 
@@ -70,19 +91,19 @@ export default {
         bottom: 0;
         border-right: 3px solid $green;
         border-bottom: 3px solid $green;
-        -webkit-transform: translate(-120%, 0%);
+        -webkit-transform: translate(-100%, 0%);
         transform: translate(-100%, 0%);
       }
 
       a:hover::before {
         -webkit-transform: translate(0%, 50%);
-          transform: translate(0%, 50%);
+          transform: translate(50%, 100%);
           opacity: 1;
       }
 
       a:hover::after {
         -webkit-transform: translate(0%, -50%);
-          transform: translate(0%, -50%);
+          transform: translate(-50%, -100%);
           opacity: 1;
     }
   }
