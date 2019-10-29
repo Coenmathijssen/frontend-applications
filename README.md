@@ -1,5 +1,7 @@
 Data Visualisatie tech track
 # The lifecycle in Indonesia
+<img width="1280" alt="Screenshot 2019-10-29 at 12 01 25" src="https://user-images.githubusercontent.com/43337909/67764689-cc159080-fa4a-11e9-9c40-ca530c4bec89.png">
+
 
 ## Concept
 For my concept I want to take the user through the full life-cycle of a native Indonesian through the years. In the data I found four main themes in life:
