@@ -1,4 +1,4 @@
-Data Visualisatie tech track
+Data Visualisatie tech track - Coen Mathijssen - ID3
 # The lifecycle in Indonesia
 <img width="1280" alt="Screenshot 2019-10-29 at 12 01 25" src="https://user-images.githubusercontent.com/43337909/67764689-cc159080-fa4a-11e9-9c40-ca530c4bec89.png">
 
@@ -48,3 +48,8 @@ For my specific project, I used a SPARQL querry to get all the data containing k
              CONTAINS (?desc, "dood")
      )
     } LIMIT 10`
+
+## Credits
+- Credits to Ivo for helping me write my SPARQL querry to fetch the correct data from the API
+- Credits to Laurens for creating an VUE example to fetch data from the API
+- Credits to Wiebe for helping me a little bit with DOM manipulation in VUE
