@@ -38,6 +38,8 @@ For my specific project, I used a SPARQL querry to get all the data containing k
     SELECT * WHERE {
      ?cho dc:title ?title .
      ?cho edm:isShownBy ?img .
+     ?cho dct:spatial ?place .
+     ?place skos:prefLabel ?placeName .
      OPTIONAL { ?cho dc:description ?desc .}
      FILTER (CONTAINS (?title, "overlijden") OR
              CONTAINS (?title, "dood") OR
