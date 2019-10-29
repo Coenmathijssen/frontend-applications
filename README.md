@@ -1,9 +1,6 @@
 Data Visualisatie tech track
 # The lifecycle in Indonesia
 
-Data Visualisatie tech track
-# The lifecycle in Indonesia
-
 ## Concept
 For my concept I want to take the user through the full life-cycle of a native Indonesian through the years. In the data I found four main themes in life:
 - Birth
