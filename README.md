@@ -16,7 +16,9 @@ I want to display these themes in the form of a lifecycle. When you click on one
 ## Framework and API
 1. For my project I used the VUE Javascript framework to render my pages. How to use:
 - Clone my project by copying the link under the 'clone or download'-button. Now open your terminal, create and cd into a new directory and type the following command.
+
 `git clone https://github.com/Coenmathijssen/frontend-applications.git`
+
 - Run the following command to install all the necessery dependencies and devdependencies:
 `npm install`
 - Run the following code to run the webapp live through localhost on your computer. 
@@ -27,6 +29,7 @@ You can change these commands under the scripts object in the package.json file.
 [Link to the used API](https://api.data.netwerkdigitaalerfgoed.nl/datasets/ivo/NMVW/services/NMVW-04/sparql)
 
 For my specific project, I used a SPARQL querry to get all the data containing keywords corresponding with the lifecycle. I used the following querry:
+
 `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX dc: <http://purl.org/dc/elements/1.1/>
     PREFIX dct: <http://purl.org/dc/terms/>
