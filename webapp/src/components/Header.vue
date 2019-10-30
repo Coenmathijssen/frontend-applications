@@ -1,7 +1,6 @@
 <template>
   <div class="root header">
-    <div ref="test" class="header-bar" id="header">
-      <logo/>
+    <div class="header-bar">
       <div class="container">
         <img class="logo svg" src="@/assets/logo-museum.svg" alt="logo museum">
         <ul class="menu-list">
@@ -16,14 +15,10 @@
 </template>
 
 <script>
-  import logo from '@/assets/logo-museum.svg'
 
 export default {
   name: 'Header',
-  props: ['menuItems'],
-  components: {
-    logo
-  }
+  props: ['menuItems']
 }
 </script>
 
@@ -36,6 +31,7 @@ export default {
     top: 0;
     width: 100%;
     background-color: $light-blue;
+    transition: all .5s;
 
     .logo {
       padding: 10px 20px;
@@ -107,6 +103,11 @@ export default {
           opacity: 1;
     }
   }
+}
+
+.root.header.white .header-bar {
+  background-color: #fff;
+  transition: all .5s;
 }
 
 </style>

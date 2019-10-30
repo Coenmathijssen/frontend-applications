@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-bind:menuItems="menuItems"/>
+    <Header v-bind:menuItems="menuItems" ref="header"/>
     <router-view/>
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
   </div>
@@ -10,13 +10,11 @@
   /*eslint 'no-console':0*/
 
   import Header from './components/Header'
-  // import Todos from './components/Todos'
 
 export default {
   name: 'app',
   components: {
     Header
-    // Todos
   },
   data: () => ({
     menuItems: [
@@ -41,25 +39,21 @@ export default {
         a: '/contact'
       }
     ]
-  })
+  }),
+  mounted() {
+    window.addEventListener('scroll', this.onScroll);
+  },
+  methods: {
+    onScroll() {
+      if (document.documentElement.scrollTop >= 50) {
+        this.$refs.header.$el.classList.add("white")
+     } else if (document.documentElement.scrollTop < 50) {
+        this.$refs.header.$el.classList.remove("white")
+     }
+    }
+  }
 }
 
-// CHANGE HEADER COLOR ON SCROLL
-
-let hasChanged = false
-let test = document.getElementById('header')
-console.log(test, testt)
-
-
-function runOnScroll() {
-    if (document.body.scrollTop > 50) {
-     const menuBackground = document.getElementsByClassName("header-bar")[0]
-      console.log('hello', menuBackground)
-      menuBackground.style.backgroundColor = "white"
-      }
- }
-
-window.addEventListener("scroll", runOnScroll)
 </script>
 
 <style lang="scss">
@@ -125,22 +119,8 @@ p, li {
     background-position: top 4px left 8px;
     border-radius: 40px;
     height: 32px;
-    width: 300px;
+    width: calc(100% + 55px);
   }
-  // &::before {
-  //   display: inline-block;
-  //   position: absolute;
-  //   z-index: -1;
-  //   content: '';
-  //   left: -40px;
-  //   top: 0;
-  //   padding: 1px;
-  //   background: #fff;
-  //   background-image: url('./assets/arrow-right.svg');
-  //   background-size: 28px 28px;
-  //   background-repeat: no-repeat;
-
-  // }
 }
 
 

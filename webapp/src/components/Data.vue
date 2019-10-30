@@ -1,27 +1,40 @@
  <template>
   <div class="root data">
+    <h1>Filter op plek</h1>
+    <div class="filter-container">
+      <button class="filter" v-on:click="noFilter">All</button>
+      <button class="filter" v-on:click="filterToEnggano">Enggano</button>
+      <button class="filter" v-on:click="filterToAsmat">Asmat</button>
+      <button class="filter" v-on:click="alfabeticalSort">Sorteer alfabetisch</button>
+    </div>
     <div class="data-container">
-      <div class="object" v-bind:key="apiData.id" v-for="data in apiData">
-          <img v-if="data.img.value" v-bind:src="data.img.value" v-bind:alt="data.img.alt">
-          <p>{{ data.title.value }}</p>
-      </div>
+      <article class="object" v-bind:key="filteredData.id" v-for="data in filteredData">
+        <div class="container">
+      <!--     <img v-if="data.img.value" v-bind:src="data.img.value" v-bind:alt="data.img.alt"> -->
+        </div>
+          <h1>{{ data.title.value }}</h1>
+          <p>{{ data.placeName.value }}</p>
+      </article>
     </div>
   </div>
  </template>
 <script>
+/*eslint 'no-console':0*/
+
 export default {
   name: 'Data',
-  props: {
-    fetchedData: Object
-  },
+  // props: {
+  //   fetchedData: Object
+  // },
   data () {
     return {
-      apiData: null
+      apiData: null,
+      filteredData: null
     }
   },
   // FETCH THE DATA
   mounted () {
-    var url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/ivo/NMVW/services/NMVW-04/sparql"
+    let url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/ivo/NMVW/services/NMVW-04/sparql"
 
     //Note that the query is wrapped in es6 template strings to allow for easy copy pasting
     const query = `
@@ -32,9 +45,16 @@ export default {
     PREFIX edm: <http://www.europeana.eu/schemas/edm/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     SELECT * WHERE {
+
+
+    <https://hdl.handle.net/20.500.11840/termmaster7745> skos:narrower* ?place .
+
      ?cho dc:title ?title .
      ?cho edm:isShownBy ?img .
-     OPTIONAL { ?cho dc:description ?desc .}
+     ?cho dct:spatial ?place .
+     ?place skos:prefLabel ?placeName .
+     ?cho dc:description ?desc .
+
      FILTER (CONTAINS (?title, "overlijden") OR
              CONTAINS (?title, "dood") OR
              CONTAINS (?title, "sterfte") OR
@@ -43,7 +63,8 @@ export default {
              CONTAINS (?title, "begraven") OR
              CONTAINS (?desc, "dood")
      )
-    } LIMIT 10
+     FILTER langMatches(lang(?title), "ned") # alleen Nederlandstalige cho's
+    } LIMIT 150
     `
     runQuery(url, query)
     var self = this
@@ -59,8 +80,9 @@ export default {
         .then(json => {
           // console.log(json)
           // console.table(json.results.bindings)
-          var fetchedData = json.results.bindings
-          console.log(fetchedData)
+          let fetchedData = json.results.bindings
+          let apiData = json.results.bindings
+          console.log('apiData: ', apiData)
 
           // Replace "http" in the img url to "https"
           //
@@ -71,6 +93,7 @@ export default {
           })
 
           self.apiData = fetchedData
+          self.filteredData = self.apiData
         })
 
         // Rewrite each result to be flat and only contain interesting values
@@ -90,6 +113,34 @@ export default {
         //   })
         // })
     }
+  },
+  methods: {
+    noFilter() {
+      this.filteredData = this.apiData
+    },
+    filterToEnggano() {
+      let filteredData = []
+      this.apiData.forEach(function (data) {
+        if(data.placeName.value === "Enggano (eiland)"){
+          filteredData.push(data)
+        }
+      })
+      this.filteredData = filteredData
+    },
+    filterToAsmat() {
+      let filteredData = []
+      this.apiData.forEach(function (data) {
+        if(data.placeName.value === "Asmat (regentschap)"){
+          filteredData.push(data)
+        }
+      })
+      this.filteredData = filteredData
+    },
+    alfabeticalSort() {
+      let filteredData = this.filteredData
+      // console.log(this.filteredData[1].title.value)
+      filteredData.sort((a, b) => (a.placeName.value > b.placeName.value) ? 1 : -1)
+    }
   }
 }
 </script>
@@ -97,20 +148,90 @@ export default {
 <style lang="scss" scoped>
   @import '../css/_main.scss';
 
+  .root.data {
+    padding-top: 20vh;
+    background-color: $cream;
+    min-height: 100vh;
+  }
+
+  h1:first-of-type {
+    color: $green;
+    text-align: center;
+  }
+
+  .filter-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+
+    button {
+      background-color: $red;
+      padding: 10px 20px;
+      margin: 0 5px;
+      border-radius: 8px;
+      font-family: 'lato', arial, sans-serif;
+      font-size: 1em;
+
+      &:last-of-type {
+        background-color: $green;
+        color: #fff;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
   .data-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 40px;
 
     .object {
-      max-width: 33.3%;
-      margin: 30px 0;
+      position: relative;
+      max-width: 30%;
+      margin-bottom: 10vh;
+      border-radius: 8px;
 
-      img {
-        position: relative;
-        left: 50%;
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        max-height: 500px;
 
-        max-width: 33.3%;
-        margin: 0 auto;
+        img {
+          display: block;
+          position: relative;
+          flex-shrink: 0;
+          min-width: 100%;
+          min-height: 100%
+        }
+
+      }
+
+      h1 {
+        position: absolute;
+        background-color: $red;
+        color: $black;
+        bottom: 20px;
+        left: 10px;
+        padding: 3px 6px;
+      }
+
+      p {
+        position: absolute;
+        background-color: $light-blue;
+        color: $black;
+        bottom: -15px;
+        left: 10px;
+        padding: 3px 6px;
       }
     }
   }
