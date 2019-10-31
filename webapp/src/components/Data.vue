@@ -5,12 +5,12 @@
       <button class="filter" v-on:click="noFilter">All</button>
       <button class="filter" v-on:click="filterToEnggano">Enggano</button>
       <button class="filter" v-on:click="filterToAsmat">Asmat</button>
-      <button class="filter" v-on:click="alfabeticalSort">Sorteer alfabetisch</button>
+      <button ref="button" class="filter off" v-on:click="alfabeticalSort" v-bind:class="{ active: whichSort }">{{ alfabetical }}</button>
     </div>
     <div class="data-container">
-      <article class="object" v-bind:key="filteredData.id" v-for="data in filteredData">
+      <article class="object" v-bind:key="data.id" v-for="data in filteredData">
         <div class="container">
-      <!--     <img v-if="data.img.value" v-bind:src="data.img.value" v-bind:alt="data.img.alt"> -->
+          <img v-if="data.img.value" v-bind:src="data.img.value" v-bind:alt="data.img.alt">
         </div>
           <h1>{{ data.title.value }}</h1>
           <p>{{ data.placeName.value }}</p>
@@ -29,7 +29,10 @@ export default {
   data () {
     return {
       apiData: null,
-      filteredData: null
+      filteredData: null,
+      whichSort: false,
+      alfabeticalReversed: 'Soorteer plaats omgekeerd alfabetisch',
+      alfabetical: 'Soorteer plaats alfabetisch'
     }
   },
   // FETCH THE DATA
@@ -137,9 +140,19 @@ export default {
       this.filteredData = filteredData
     },
     alfabeticalSort() {
+      this.whichSort = !this.whichSort
       let filteredData = this.filteredData
-      // console.log(this.filteredData[1].title.value)
-      filteredData.sort((a, b) => (a.placeName.value > b.placeName.value) ? 1 : -1)
+      if(this.whichSort === true) {
+        filteredData.sort((a, b) => (a.placeName.value > b.placeName.value) ? 1 : -1)
+        // https://stackoverflow.com/questions/37465289/how-to-set-timeout-in-a-vuejs-method/37465651
+        setTimeout(function() {
+        this.$refs.button.textContent = this.alfabeticalReversed
+      }.bind(this), 500)
+      } else {
+          this.$refs.button.textContent = this.alfabetical
+          console.log(this.alfabetical)
+          filteredData.sort((a, b) => (a.placeName.value < b.placeName.value) ? 1 : -1)
+      }
     }
   }
 }
@@ -168,13 +181,37 @@ export default {
       background-color: $red;
       padding: 10px 20px;
       margin: 0 5px;
+      border: none;
       border-radius: 8px;
       font-family: 'lato', arial, sans-serif;
       font-size: 1em;
 
       &:last-of-type {
+        position: relative;
+        padding-right: 50px;
         background-color: $green;
         color: #fff;
+        width: 270px;
+        transition: width .5s;
+
+        &::after {
+              display: inline-block;
+              position: absolute;
+              content: '';
+              top: 0;
+              right: 0;
+              background-image: url('../assets/bullet.svg');
+              background-color: white;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 20px 20px;
+              height: 35px;
+              width: 35px;
+              border: solid 2px $green;
+              border-radius: 8px;
+              transform: rotate(270deg);
+              transition: all .5s;
+            }
       }
 
       &:hover {
@@ -183,6 +220,16 @@ export default {
 
       &:focus {
         outline: none;
+      }
+    }
+
+    button.active {
+      width: 352px;
+      transition: all .5s;
+
+      &:after {
+        transform: rotate(90deg);
+        transition: all .5s;
       }
     }
   }
@@ -195,6 +242,7 @@ export default {
 
     .object {
       position: relative;
+      min-width: 500px;
       max-width: 30%;
       margin-bottom: 10vh;
       border-radius: 8px;
@@ -217,6 +265,7 @@ export default {
       }
 
       h1 {
+        text-align: left;
         position: absolute;
         background-color: $red;
         color: $black;

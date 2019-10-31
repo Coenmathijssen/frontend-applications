@@ -1,21 +1,23 @@
 <template>
-  <a href="#" class="button">Neem mij mee door de collectie</a>
+  <a href="#" class="button" v-bind:href="link">{{ btnText }}</a>
 </template>
 
 <script>
   export default {
     name: 'Button',
-    data() {
-
-    }
+    props: ['link', 'btnText']
   }
 </script>
 
 <style lang="scss" scoped>
+  @import '../css/_main.scss';
+
   .button {
+  display: inline-block;
   position: relative;
   z-index: 1;
   top: 10px;
+  margin: 20px 0;
   margin-left: 44px;
   font-family: 'Noto Serif', serif;
   font-weight: bold;
@@ -31,7 +33,7 @@
     top: -6px;
     padding: 2px;
     background: #fff;
-    background-image: url('./assets/arrow-right.svg');
+    background-image: url('../assets/arrow-right.svg');
     background-size: 28px 28px;
     background-position: top 4px left 4px;
     border-radius: 40px;
@@ -45,7 +47,7 @@
     background-position: top 4px left 8px;
     border-radius: 40px;
     height: 32px;
-    width: 300px;
+    width: calc(100% + 55px);
   }
 }
 </style>
