@@ -1,5 +1,5 @@
 <template>
-  <a href="#" class="button" v-bind:href="link">{{ btnText }}</a>
+  <a class="button" v-bind:href="link">{{ btnText }}</a>
 </template>
 
 <script>
