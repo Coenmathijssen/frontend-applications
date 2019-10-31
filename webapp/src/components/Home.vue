@@ -5,7 +5,6 @@
         <div class="text">
           <h1>Culturen van overal ter wereld. Door de gehele geschiedenis </h1>
           <p>Maecenas nec odio et ante tincidunt tempus. Curabitur suscipit suscipit tellus. Aenean imperdiet. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Ut a nisl id ante tempus hendrerit.</p>
-          <router-link to="/visualisations" class="button">Neem mij mee door de collectie</router-link>
           <Button v-bind:href="buttonCont.link" v-bind:btnText="buttonCont.btnText"></Button>
         </div>
         <img class="rotating" src="@/assets/donut.svg" alt="donut chart">
