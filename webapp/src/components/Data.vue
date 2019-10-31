@@ -5,7 +5,7 @@
       <button class="filter" v-on:click="noFilter">All</button>
       <button class="filter" v-on:click="filterToEnggano">Enggano</button>
       <button class="filter" v-on:click="filterToAsmat">Asmat</button>
-      <button ref="button" class="filter off" v-on:click="alfabeticalSort" v-bind:class="{ active: whichSort }">{{ alfabetical }}</button>
+      <button ref="button" class="filter" v-on:click="alfabeticalSort" v-bind:class="{ active: whichSort }">{{ alfabetical }}</button>
     </div>
     <div class="data-container">
       <article class="object" v-bind:key="data.id" v-for="data in filteredData">
