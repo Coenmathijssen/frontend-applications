@@ -44,6 +44,7 @@ export default {
     window.addEventListener('scroll', this.onScroll);
   },
   methods: {
+    // Needed to use the documentElement to access the document in DOM. When theres's more than 50px scrolled from the top. The class white is added to change the menu to white. If it's less than 50, it will be removed again. You need to use a ref to acces elements and use $el to use the DOM functions.
     onScroll() {
       if (document.documentElement.scrollTop >= 50) {
         this.$refs.header.$el.classList.add("white")
@@ -66,11 +67,9 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Noto Serif', serif;
-}
-
-h1 {
 }
 
 p, li {

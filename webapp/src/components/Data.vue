@@ -23,23 +23,20 @@
 
 export default {
   name: 'Data',
-  // props: {
-  //   fetchedData: Object
-  // },
   data () {
     return {
-      apiData: null,
-      filteredData: null,
-      whichSort: false,
-      alfabeticalReversed: 'Soorteer plaats omgekeerd alfabetisch',
-      alfabetical: 'Soorteer plaats alfabetisch'
+      apiData: null, // The fetched data will be stored here
+      filteredData: null, // The filtered data will be stored here and will change live in the template if changed
+      whichSort: false, // WhichSort will be toggled to trigger alfabetical or reversed alfabetical with true or false
+      alfabeticalReversed: 'Soorteer plaats omgekeerd alfabetisch', // Dynamic content of toggle
+      alfabetical: 'Soorteer plaats alfabetisch' // Dynamic content of toggle
     }
   },
-  // FETCH THE DATA
+  // Fetching the data
   mounted () {
     let url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/ivo/NMVW/services/NMVW-04/sparql"
 
-    //Note that the query is wrapped in es6 template strings to allow for easy copy pasting
+    // Used SPARQL query. Ivo helped me a bit with this one
     const query = `
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -69,28 +66,22 @@ export default {
      FILTER langMatches(lang(?title), "ned") # alleen Nederlandstalige cho's
     } LIMIT 150
     `
+
+    // The base of this code is Laurens. I changed it to suit my use case
     runQuery(url, query)
     var self = this
     function runQuery (url, query) {
       //Test if the endpoint is up and print result to page
-      // (you can improve this script by making the next part of this function wait for a succesful result)
       fetch(url)
-
-      // .then(res => console.log('Status of API: ', res.status))
       // Call the url with the query attached, output data
       fetch(url + '?query=' + encodeURIComponent(query) + '&format=json')
         .then(res => res.json())
         .then(json => {
-          // console.log(json)
-          // console.table(json.results.bindings)
           let fetchedData = json.results.bindings
           let apiData = json.results.bindings
           console.log('apiData: ', apiData)
 
-          // Replace "http" in the img url to "https"
-          //
-          // fetchedData is een variabele die het resultaat uit de api haalt,
-          // dit doe ik voordat ik het aan het data element aan de pagina mee geef.
+          // Replace "http" in the img url to "https". Wiebe helped me with this code.
           fetchedData.forEach(function(i){
             i.img.value = i.img.value.replace("http", "https")
           })
@@ -98,29 +89,13 @@ export default {
           self.apiData = fetchedData
           self.filteredData = self.apiData
         })
-
-        // Rewrite each result to be flat and only contain interesting values
-        // .then (apiData => {
-        //   console.log('apiData:', apiData)
-        //   return apiData.map((apiData, index) => {
-        //     return {
-        //       //I've added an id value because that helps Vue distinguish different items later on
-        //       id: index,
-        //       url: apiData.obj.value,
-        //       type: apiData.obj.type,
-        //       //If you're confused about this next line, try experimentig with split+pop on a string
-        //       // in your browser
-        //       theme: apiData.obj.value.split(this.prefixes.nmvw).pop(),
-        //       label: apiData.objLabel.value
-        //     }
-        //   })
-        // })
     }
   },
   methods: {
     noFilter() {
-      this.filteredData = this.apiData
+      this.filteredData = this.apiData // When noFilter runs the filteredData will be equal to all fetched Data
     },
+    // Will loop through all data and push all data with this exact placeName to the filteredData array. Filtered dataArray will then be stored in the data function, so it becomes available outside of this function
     filterToEnggano() {
       let filteredData = []
       this.apiData.forEach(function (data) {
@@ -130,6 +105,7 @@ export default {
       })
       this.filteredData = filteredData
     },
+    // Will loop through all data and push all data with this exact placeName to the filteredData array. Filtered dataArray will then be stored in the data function, so it becomes available outside of this function
     filterToAsmat() {
       let filteredData = []
       this.apiData.forEach(function (data) {
@@ -139,19 +115,22 @@ export default {
       })
       this.filteredData = filteredData
     },
+    // whichSort boolean will be switched when the function runs. If it's true, the array of filteredData will be sorted alfabetically, if it's false it will be sorted reversed alfabetically.
     alfabeticalSort() {
       this.whichSort = !this.whichSort
       let filteredData = this.filteredData
       if(this.whichSort === true) {
         filteredData.sort((a, b) => (a.placeName.value > b.placeName.value) ? 1 : -1)
         // https://stackoverflow.com/questions/37465289/how-to-set-timeout-in-a-vuejs-method/37465651
+        // The textContent will be changed to the corresponding data. Here a timer is applied so the button can first grow larger before adding more text.
         setTimeout(function() {
         this.$refs.button.textContent = this.alfabeticalReversed
       }.bind(this), 500)
+      // whichSort boolean will be switched when the function runs. If it's true, the array of filteredData will be sorted alfabetically, if it's false it will be sorted reversed alfabetically.
       } else {
-          this.$refs.button.textContent = this.alfabetical
-          console.log(this.alfabetical)
-          filteredData.sort((a, b) => (a.placeName.value < b.placeName.value) ? 1 : -1)
+        this.$refs.button.textContent = this.alfabetical
+        console.log(this.alfabetical)
+        filteredData.sort((a, b) => (a.placeName.value < b.placeName.value) ? 1 : -1)
       }
     }
   }
@@ -195,23 +174,23 @@ export default {
         transition: width .5s;
 
         &::after {
-              display: inline-block;
-              position: absolute;
-              content: '';
-              top: 0;
-              right: 0;
-              background-image: url('../assets/bullet.svg');
-              background-color: white;
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 20px 20px;
-              height: 35px;
-              width: 35px;
-              border: solid 2px $green;
-              border-radius: 8px;
-              transform: rotate(270deg);
-              transition: all .5s;
-            }
+          display: inline-block;
+          position: absolute;
+          content: '';
+          top: 0;
+          right: 0;
+          background-image: url('../assets/bullet.svg');
+          background-color: white;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 20px 20px;
+          height: 35px;
+          width: 35px;
+          border: solid 2px $green;
+          border-radius: 8px;
+          transform: rotate(270deg);
+          transition: all .5s;
+        }
       }
 
       &:hover {

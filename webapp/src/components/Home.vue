@@ -35,6 +35,7 @@ export default {
   name: 'Home',
   data () {
     return {
+      // The link and btnTxt are passed to the props and into the component by stating them in the data function
       buttonCont: {
         link: '/visualisations',
         btnText: "Neem mij mee door de collecties"
@@ -73,7 +74,6 @@ export default {
           margin-bottom: 20px;
         }
       }
-
 
       img {
         width: 350px;
@@ -135,9 +135,8 @@ export default {
     }
   }
 
-// ANIMATIE VOOR ROTEREN
-
-@-webkit-keyframes rotating /* Safari and Chrome */ {
+// animation for rotating
+@-webkit-keyframes rotating {
   from {
     -webkit-transform: rotate(0deg);
     -o-transform: rotate(0deg);
@@ -162,8 +161,7 @@ export default {
   animation: rotating 40s linear infinite;
 }
 
-// ANIMATIE VOOR BLURB WIGGLE
-
+// animation for blurb wiggle
 @keyframes wiggle {
   0% {
     transform: translateX(0);
@@ -185,5 +183,4 @@ export default {
     transform: translateX(0);
   }
 }
-
 </style>

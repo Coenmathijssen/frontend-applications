@@ -5,8 +5,7 @@
 <script>
   export default {
     name: 'Button',
-    props: ['link', 'btnText']
-  }
+    props: ['link', 'btnText'] // The link and btnText are stated as props so that there is a connection with the parent component and the data from there will be flowed to this component
 </script>
 
 <style lang="scss" scoped>
