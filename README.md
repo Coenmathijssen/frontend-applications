@@ -12,19 +12,20 @@ For my concept I want to take the user through the full life-cycle of a native I
 
 I want to display these themes in the form of a lifecycle. When you click on one of these themes, the browser zooms in on the theme and displays the related subjects around that theme. When you click on a subject, you are able to see the corresponding objects. Secondly, there will be a timeline to see how these rituals change overtime. I’m also considering using a map to differentiate the areas in Indonesia. 
 
-## Framework and API
-1. For my project I used the VUE Javascript framework to render my pages. How to use:
-- Clone my project by copying the link under the 'clone or download'-button. Now open your terminal, create and cd into a new directory and type the following command.
+## Install
+1. For my project I used the VUE Javascript framework to render my pages. Clone my project by copying the link under the 'clone or download'-button. Now open your terminal, create and cd into a new directory and type the following command.
 
 `git clone https://github.com/Coenmathijssen/frontend-applications.git`
 
-- Run the following command to install all the necessery dependencies and devdependencies:
+2. Run the following command to install all the necessery dependencies and devdependencies:
 `npm install`
-- Run the following code to run the webapp live through localhost on your computer. 
+
+3. Run the following code to run the webapp live through localhost on your computer. 
 `npm run serve`
 You can change these commands under the scripts object in the package.json file.
 
-2. For my projects I used an API owned by the 'Stichting Nationaal Museum van Wereldculturen'. The API uses SPARQL to fetch and filter data from the API.
+## API and SPARQL
+For my projects I used an API owned by the 'Stichting Nationaal Museum van Wereldculturen'. The API uses SPARQL to fetch and filter data from the API.
 [Link to the used API](https://api.data.netwerkdigitaalerfgoed.nl/datasets/ivo/NMVW/services/NMVW-04/sparql)
 
 For my specific project, I used a SPARQL querry to get all the data containing keywords corresponding with the lifecycle. I used the following querry:
@@ -36,11 +37,16 @@ For my specific project, I used a SPARQL querry to get all the data containing k
     PREFIX edm: <http://www.europeana.eu/schemas/edm/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     SELECT * WHERE {
+
+
+    <https://hdl.handle.net/20.500.11840/termmaster7745> skos:narrower* ?place .
+
      ?cho dc:title ?title .
      ?cho edm:isShownBy ?img .
      ?cho dct:spatial ?place .
      ?place skos:prefLabel ?placeName .
-     OPTIONAL { ?cho dc:description ?desc .}
+     ?cho dc:description ?desc .
+
      FILTER (CONTAINS (?title, "overlijden") OR
              CONTAINS (?title, "dood") OR
              CONTAINS (?title, "sterfte") OR
@@ -49,7 +55,10 @@ For my specific project, I used a SPARQL querry to get all the data containing k
              CONTAINS (?title, "begraven") OR
              CONTAINS (?desc, "dood")
      )
-    } LIMIT 10`
+     FILTER langMatches(lang(?title), "ned") # alleen Nederlandstalige cho's
+    } LIMIT 150`
+    
+The SPARQL query fetches data which contain the keywords 'overlijden', 'dood', 'sterfte', etc. in the title. It will only fetch items with a dutch title and description. With the term master I make sure to only get data from Indonesia. I need all these items for my lifecycle.
 
 ## Credits
 - Credits to Ivo for helping me write my SPARQL querry to fetch the correct data from the API
