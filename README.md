@@ -38,6 +38,11 @@ I want to display these themes in the form of a lifecycle. When you click on one
 `npm run serve`
 You can change these commands under the scripts object in the package.json file.
 
+4. Go to the following URL's in the browser to access the local server
+`- Local:   http://localhost:8080/
+ - Network: http://172.16.1.175:8080/
+`
+
 ## API and SPARQL
 For my projects I used an API owned by the 'Stichting Nationaal Museum van Wereldculturen'. The API uses SPARQL to fetch and filter data from the API.
 [Link to the used API](https://api.data.netwerkdigitaalerfgoed.nl/datasets/ivo/NMVW/services/NMVW-04/sparql)
