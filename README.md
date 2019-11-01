@@ -44,6 +44,39 @@ You can change these commands under the scripts object in the package.json file.
 - Network: http://172.16.1.175:8080/
 ```
 
+## API JSON format
+```
+0: {
+   cho: {
+      type: "uri",
+      value: "https://hdl.handle.net/20.500.11840/160928"
+   },
+   desc: {
+      type: "literal",
+      value: "Dit houten huispaneel is een van de weinige overgebleven tastbare voorwerpen van de koppensnellerspraktijken in Mentawai. Het beeldt een slachtoffer uit die gedood is bij een jacht. Het is gehakt uit tropisch hardhout, de details zijn met een mes uitgesneden. Het is onderdeel geweest in de achterste wand van de voorkamer in een uma (traditioneel familiehuis) in Taileleu in Zuid-Siberut. Reimar Schefold heeft het in 1967 verworven van de 60-jarige oude zoon van de maker, die vermoedde dat het paneel is gemaakt kort voordat hij geboren werd. Het originele huis was in verval geraakt en de zoon had het bewaard om het in een nieuw te bouwen uma te hergebruiken. Kinderen hadden er intussen meegespeeld, waardoor het oppervlak op verschillende plekken beschadigd is geraakt."
+   },
+   img: {
+      type: "literal",
+      value: "https://collectie.wereldculturen.nl/cc/imageproxy.ashx?server=localhost&port=17581&filename=images/Images/NMVW//7085-2_d056129.jpg"
+   },
+   place: {
+    type: "uri",
+    value: "https://hdl.handle.net/20.500.11840/termmaster19743"
+   },
+   placeName {
+    type: "literal",
+    value: "Siberut (eiland)"
+   },
+   title: {
+      type: "literal",
+      value: "Paneel",
+      xml:lang: "ned"
+   },
+  1: {
+    Same format
+  }
+```
+
 ## API and SPARQL
 For my projects I used an API owned by the 'Stichting Nationaal Museum van Wereldculturen'. The API uses SPARQL to fetch and filter data from the API.
 [Link to the used API](https://api.data.netwerkdigitaalerfgoed.nl/datasets/ivo/NMVW/services/NMVW-04/sparql)
@@ -83,4 +116,5 @@ The SPARQL query fetches data which contain the keywords 'overlijden', 'dood', '
 ## Credits
 - Credits to Ivo for helping me write my SPARQL querry to fetch the correct data from the API
 - Credits to Laurens for creating an VUE example to fetch data from the API
-- Credits to Wiebe for helping me a little bit with DOM manipulation in VUE
+- Credits to Wiebe for helping me with DOM manipulation in VUE
+- Credits to Roy for working together on filter and sort
