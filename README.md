@@ -12,13 +12,19 @@ For my concept I want to take the user through the full life-cycle of a native I
 
 I want to display these themes in the form of a lifecycle. When you click on one of these themes, the browser zooms in on the theme and displays the related subjects around that theme. When you click on a subject, you are able to see the corresponding objects. Secondly, there will be a timeline to see how these rituals change overtime. I’m also considering using a map to differentiate the areas in Indonesia. 
 
+## Features 
+- [vue router](https://github.com/Coenmathijssen/frontend-applications/wiki/vue-router)
+- [sass](https://github.com/Coenmathijssen/frontend-applications/wiki/sass-loader-config)
+- [filter en sort](https://github.com/Coenmathijssen/frontend-applications/wiki/Filteren-en-sorteren)
+- [DOM manipulation](https://github.com/Coenmathijssen/frontend-applications/wiki/DOM-manipulatie)
+- Data fetching and storing
+
 ## Built with
 - [API](https://collectie.wereldculturen.nl/) - from the museum
 - [SPARQL](https://www.w3.org/TR/rdf-sparql-query/) - Written language for API database
 - [VueJS javascript framework](https://vuejs.org/) - A Javascript framework
 - [webpack](https://webpack.js.org/) - For compiling and bundling my JS
 - [Node](https://nodejs.org/en/) - For packages and isnstalls
-
 
 ## Install
 1. For my project I used the VUE Javascript framework to render my pages. Clone my project by copying the link under the 'clone or download'-button. Now open your terminal, create and cd into a new directory and type the following command.
